@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
+
 
 
 @Component({
@@ -23,9 +24,40 @@ export class HomePage {
     }
 }
 
-deleteTask(index){
+
+
+
+/* deleteTask(index){
   this.taskList.splice(index, 1);
+} */
+
+
+async deleteTask(index) {
+  const alert = await this.alertController.create({
+    header: 'WAIT!',
+    message: ' Are you sure you really wanna  delete?',
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          console.log('Confirm Cancel: blah');
+        }
+      }, {
+        text: 'DELETE',
+        handler: () => {
+          this.taskList.splice(index, 1);
+        }
+      }
+    ]
+  });
+
+  await alert.present();
 }
+
+
+
 
 
   async updateTask(index) {
